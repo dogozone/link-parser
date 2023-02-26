@@ -10,7 +10,16 @@ type Link struct {
 	Href, Text string
 }
 
-func Parse(doc *html.Node) []Link {
+func Parse(reader *strings.Reader) ([]Link, error) {
+	parentNode, err := html.Parse(reader)
+	if err != nil {
+		return nil, err
+	}
+
+	return parseLinks(parentNode), nil
+}
+
+func parseLinks(n *html.Node) []Link {
 	var links []Link
 	var f func(*html.Node)
 	f = func(n *html.Node) {
@@ -25,8 +34,7 @@ func Parse(doc *html.Node) []Link {
 		}
 	}
 
-	f(doc)
-
+	f(n)
 	return links
 }
 
