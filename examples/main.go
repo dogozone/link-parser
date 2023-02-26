@@ -27,8 +27,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Parse(doc)
-	// dfs(doc, " ")
-	links := Parse(doc)
+	links := link.Parse(doc)
 	fmt.Printf("final %v\n", links)
 }
