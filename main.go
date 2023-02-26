@@ -43,11 +43,7 @@ func parseNode(doc *html.Node) []Link {
 	f = func(n *html.Node) {
 
 		if n.Type == html.ElementNode && n.Data == "a" {
-			textSlice := extractText(n)
-			link := Link{
-				Href: n.Attr[0].Val,
-				Text: strings.Join(textSlice, " "),
-			}
+			link := buildLink(n)
 			links = append(links, link)
 		}
 
@@ -59,6 +55,35 @@ func parseNode(doc *html.Node) []Link {
 	f(doc)
 
 	return links
+}
+
+func buildLink(node *html.Node) Link {
+	var link Link
+	for _, attr := range node.Attr {
+		if attr.Key == "href" {
+			link.Href = attr.Val
+			break
+		}
+	}
+	link.Text = text(node)
+	return link
+}
+
+func text(n *html.Node) string {
+	if n.Type == html.TextNode {
+		return n.Data
+	}
+	if n.Type != html.ElementNode {
+		return ""
+	}
+
+	var builtText string
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		builtText += text(c) + " "
+	}
+
+	// Using (strings) Fields to remove whitespace characters
+	return strings.Join(strings.Fields(builtText), " ")
 }
 
 func extractText(ahref *html.Node) []string {
