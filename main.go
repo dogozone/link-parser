@@ -28,6 +28,7 @@ func main() {
 	}
 
 	parseNode(doc)
+	dfs(doc, " ")
 	links := parseNode(doc)
 	fmt.Printf("final %v\n", links)
 }
@@ -77,4 +78,13 @@ func extractText(ahref *html.Node) []string {
 	f(ahref)
 
 	return text
+}
+
+// Basic Depth-first search
+func dfs(n *html.Node, padding string) {
+	fmt.Println(padding, n.Data)
+
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		dfs(c, padding+"  ")
+	}
 }
