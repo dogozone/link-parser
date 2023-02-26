@@ -1,4 +1,4 @@
-module github.com/dogozone/html-link-parser
+module github.com/dogozone/link-parser
 
 go 1.19
 
