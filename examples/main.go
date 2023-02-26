@@ -5,7 +5,7 @@ import (
 	"log"
 	"strings"
 
-	"golang.org/x/net/html"
+	linkParser "github.com/dogozone/link-parser"
 )
 
 func main() {
@@ -22,11 +22,11 @@ func main() {
 	</body>
 	</html>
 	`
-	doc, err := html.Parse(strings.NewReader(s))
+	reader := strings.NewReader(s)
+
+	links, err := linkParser.Parse(reader)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	links := link.Parse(doc)
 	fmt.Printf("final %v\n", links)
 }
