@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-var S string = `<html>
+var S1 string = `<html>
 <body>
 	<a href="/page">A link to a page</a>
 </body>
@@ -14,7 +14,7 @@ var S string = `<html>
 `
 
 func TestParse(t *testing.T) {
-	reader := strings.NewReader(S)
+	reader := strings.NewReader(S1)
 
 	links, err := Parse(reader)
 	if err != nil {
