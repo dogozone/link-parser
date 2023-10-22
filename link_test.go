@@ -1,7 +1,6 @@
 package linkParser
 
 import (
-	"fmt"
 	"log"
 	"strings"
 	"testing"
@@ -28,5 +27,4 @@ func TestParse(t *testing.T) {
 	if expected.Text != links[0].Text {
 		t.Errorf("parse link Text: \nexpected: %s,\nactual: %s\n", expected.Text, links[0].Text)
 	}
-	fmt.Printf("%+v\n", links)
 }
